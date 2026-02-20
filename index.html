@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nonna Franca — Pizzeria Trattoria</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5ede0;
+  --parchment: #e8d9c0;
+  --dark: #1a0f05;
+  --espresso: #2d1a0a;
+  --tomato: #c0392b;
+  --tomato-light: #e74c3c;
+  --gold: #b8860b;
+  --gold-light: #d4a017;
+  --green-it: #006633;
+  --mozzarella: #fdf8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--cream);
+  color: var(--dark);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.5;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #3d1c08 0%, #180900 70%);
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg,transparent,transparent 60px,rgba(184,134,11,.02) 60px,rgba(184,134,11,.02) 61px),
+              repeating-linear-gradient(-45deg,transparent,transparent 60px,rgba(184,134,11,.02) 60px,rgba(184,134,11,.02) 61px);
+}
+
+.flag { display:flex;width:50px;height:3px;margin:0 auto 28px;border-radius:2px;overflow:hidden; }
+.flag span { flex:1; }
+.flag span:nth-child(1){background:#006633}
+.flag span:nth-child(2){background:#fff}
+.flag span:nth-child(3){background:#c0392b}
+
+.hero-title { font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(3.2rem,11vw,8rem);color:var(--gold-light);text-align:center;line-height:1;text-shadow:0 4px 60px rgba(212,160,23,.35);animation:fadeUp .9s ease both; }
+.hero-sub { font-size:clamp(.85rem,2.5vw,1.15rem);letter-spacing:.45em;text-transform:uppercase;color:rgba(245,237,224,.5);margin-top:14px;animation:fadeUp .9s .2s ease both; }
+.hero-line { width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:28px auto;animation:fadeUp .9s .3s ease both; }
+.hero-tagline { font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:rgba(245,237,224,.4);animation:fadeUp .9s .4s ease both; }
+.hero-cta { margin-top:52px;display:flex;flex-direction:column;align-items:center;gap:10px;animation:fadeUp .9s .6s ease both; }
+.hero-cta span { font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(212,160,23,.6); }
+.hero-arrow { width:1px;height:48px;background:linear-gradient(to bottom,var(--gold-light),transparent);animation:pulse-line 2s infinite; }
+
+@keyframes pulse-line { 0%,100%{opacity:.4} 50%{opacity:1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+/* NAV */
+nav { position:sticky;top:0;z-index:100;background:rgba(26,15,5,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,134,11,.18);padding:0 40px; }
+.nav-inner { max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 0; }
+.nav-logo { font-family:'Playfair Display',serif;font-style:italic;font-size:1.25rem;color:var(--gold-light); }
+.nav-links { display:flex;gap:28px;list-style:none; }
+.nav-links a { color:rgba(245,237,224,.6);text-decoration:none;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;transition:color .3s; }
+.nav-links a:hover { color:var(--gold-light); }
+@media(max-width:700px){ .nav-links{display:none} }
+
+/* PIZZA SECTION */
+#pizza-section { background:#130800;padding:80px 0 90px; }
+.pizza-wrap { max-width:1200px;margin:0 auto;padding:0 30px; }
+.section-eyebrow { font-size:.72rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px; }
+.section-heading { font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,5vw,3.2rem);color:#f5ede0;margin-bottom:6px; }
+.section-rule { width:50px;height:2px;background:var(--tomato);margin:18px 0 50px; }
+
+.pizza-layout { display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center; }
+@media(max-width:820px){ .pizza-layout{grid-template-columns:1fr;gap:40px} }
+
+.wheel-wrap { position:relative;display:flex;flex-direction:column;align-items:center; }
+
+#pizzaCanvas {
+  cursor:grab;display:block;max-width:100%;border-radius:50%;
+  filter:drop-shadow(0 0 40px rgba(192,57,43,.35)) drop-shadow(0 0 80px rgba(0,0,0,.7));
+  transition:filter .4s;user-select:none;-webkit-user-select:none;touch-action:none;
+}
+#pizzaCanvas:active { cursor:grabbing; }
+#pizzaCanvas:hover { filter:drop-shadow(0 0 60px rgba(212,160,23,.45)) drop-shadow(0 0 80px rgba(0,0,0,.7)); }
+.wheel-hint { margin-top:16px;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,237,224,.3); }
+
+/* INFO PANEL */
+.pizza-info-panel { color:#f5ede0;position:relative; }
+.pip-number { font-family:'Playfair Display',serif;font-size:5rem;color:rgba(184,134,11,.12);position:absolute;top:-20px;left:-10px;line-height:1;pointer-events:none;font-style:italic; }
+.pip-label { font-size:.72rem;letter-spacing:.45em;text-transform:uppercase;color:var(--tomato-light);margin-bottom:10px;display:block; }
+.pip-name { font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-style:italic;color:var(--gold-light);line-height:1.1;margin-bottom:6px; }
+.pip-price { display:flex;gap:16px;margin-bottom:22px;flex-wrap:wrap; }
+.price-badge { background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.4);padding:5px 16px;border-radius:20px;font-size:.95rem;color:#ff9988; }
+.price-badge strong { color:#fff; }
+.pip-desc { font-size:1.1rem;line-height:1.9;color:rgba(245,237,224,.6);font-style:italic;margin-bottom:28px;border-left:2px solid rgba(184,134,11,.3);padding-left:16px; }
+.pip-ing-label { font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:14px; }
+.pip-ing-list { display:flex;flex-wrap:wrap;gap:8px; }
+.ing-tag { background:rgba(245,237,224,.05);border:1px solid rgba(184,134,11,.25);padding:6px 16px;border-radius:24px;font-size:.9rem;color:rgba(245,237,224,.8);transition:all .3s; }
+.ing-tag:hover { background:rgba(184,134,11,.18);border-color:var(--gold-light);color:#fff; }
+.pip-dots { display:flex;gap:8px;margin-top:30px;flex-wrap:wrap; }
+.pip-dot { width:6px;height:6px;border-radius:50%;background:rgba(245,237,224,.2);border:none;cursor:pointer;transition:all .3s;padding:0; }
+.pip-dot.active { background:var(--gold-light);transform:scale(1.5); }
+.pip-content { transition:opacity .22s ease,transform .22s ease; }
+.pip-content.fading { opacity:0;transform:translateX(14px); }
+
+/* OTHER SECTIONS */
+section.menu-sec { max-width:1100px;margin:0 auto;padding:80px 30px; }
+.alt-bg { background:var(--parchment);padding:80px 0; }
+.alt-bg section.menu-sec { background:transparent; }
+.sec-eyebrow { font-size:.72rem;letter-spacing:.5em;text-transform:uppercase;color:var(--tomato);margin-bottom:8px; }
+.sec-heading { font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,5vw,3rem);color:var(--espresso); }
+.sec-rule { width:50px;height:2px;background:var(--gold);margin:18px 0 46px; }
+.menu-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px; }
+.mc { background:var(--mozzarella);border:1px solid rgba(45,26,10,.1);padding:26px;position:relative;transition:transform .3s,box-shadow .3s; }
+.mc::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--tomato),var(--gold)); }
+.mc:hover { transform:translateY(-5px);box-shadow:0 14px 40px rgba(45,26,10,.13); }
+.mc-name { font-family:'Playfair Display',serif;font-style:italic;font-size:1.35rem;color:var(--espresso);margin-bottom:5px; }
+.mc-desc { font-size:.9rem;color:rgba(45,26,10,.5);font-style:italic;line-height:1.5;margin-bottom:12px; }
+.mc-price { font-size:1rem;color:var(--tomato);font-weight:700;letter-spacing:.05em; }
+.cat-title { font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:.3em;text-transform:uppercase;color:var(--espresso);padding:12px 0 10px;border-bottom:1px solid rgba(45,26,10,.15);margin-bottom:20px; }
+
+/* FOOTER */
+footer { background:var(--dark);color:rgba(245,237,224,.55);text-align:center;padding:60px 30px 40px; }
+.ft-logo { font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;color:var(--gold-light);display:block;margin-bottom:6px; }
+.ft-sub { font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,237,224,.3);margin-bottom:26px; }
+.ft-contacts { display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:20px;font-size:.95rem; }
+.ft-contacts a { color:rgba(245,237,224,.55);text-decoration:none;transition:color .3s; }
+.ft-contacts a:hover { color:var(--gold-light); }
+.ft-note { font-size:.78rem;color:rgba(245,237,224,.2);margin-top:18px; }
+
+.sr { opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease; }
+.sr.vis { opacity:1;transform:none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="flag"><span></span><span></span><span></span></div>
+  <h1 class="hero-title">Nonna Franca</h1>
+  <p class="hero-sub">Pizzeria &amp; Trattoria · Rivas, Pérez Zeledón</p>
+  <div class="hero-line"></div>
+  <p class="hero-tagline">Sabores de Italia, con alma costarricense</p>
+  <div class="hero-cta">
+    <span>Explora el menú</span>
+    <div class="hero-arrow"></div>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">Nonna Franca</span>
+    <ul class="nav-links">
+      <li><a href="#pizza-section">Pizza</a></li>
+      <li><a href="#entradas">Entradas</a></li>
+      <li><a href="#pasta">Pasta</a></li>
+      <li><a href="#carnes">Carnes</a></li>
+      <li><a href="#postres">Postres</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="pizza-section">
+  <div class="pizza-wrap">
+    <p class="section-eyebrow sr">Especialidad de la casa</p>
+    <h2 class="section-heading sr">Nuestras Pizzas</h2>
+    <div class="section-rule sr"></div>
+    <div class="pizza-layout">
+      <div class="wheel-wrap sr">
+        <canvas id="pizzaCanvas" width="500" height="500"></canvas>
+        <p class="wheel-hint">↺ &nbsp; Arrastra para girar</p>
+      </div>
+      <div class="pizza-info-panel">
+        <div class="pip-number" id="pipNum">01</div>
+        <div class="pip-content" id="pipContent">
+          <span class="pip-label" id="pipLabel">Pizza seleccionada</span>
+          <div class="pip-name" id="pipName">Margherita</div>
+          <div class="pip-price" id="pipPrice">
+            <span class="price-badge"><strong>Med</strong> ₡4,500</span>
+            <span class="price-badge"><strong>Gde</strong> ₡6,500</span>
+          </div>
+          <p class="pip-desc" id="pipDesc">La reina de las pizzas. Simple y eterna.</p>
+          <p class="pip-ing-label">Ingredientes</p>
+          <div class="pip-ing-list" id="pipIngs"></div>
+        </div>
+        <div class="pip-dots" id="pipDots"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="menu-sec" id="entradas">
+  <p class="sec-eyebrow sr">Para comenzar</p>
+  <h2 class="sec-heading sr">Entradas</h2>
+  <div class="sec-rule sr"></div>
+  <div class="menu-grid">
+    <div class="mc sr"><div class="mc-name">Ensalada Caprese</div><div class="mc-desc">Tomate, mozzarella fresca y albahaca</div><div class="mc-price">₡2,900</div></div>
+    <div class="mc sr"><div class="mc-name">Carpaccio de Betabel</div><div class="mc-desc">Remolacha con queso ricotta, aceite de olivo y arúgula</div><div class="mc-price">₡2,900</div></div>
+    <div class="mc sr"><div class="mc-name">Papas a la Francesa</div><div class="mc-desc">Papas fritas clásicas y crujientes</div><div class="mc-price">₡1,800</div></div>
+    <div class="mc sr"><div class="mc-name">Papas Gajo</div><div class="mc-desc">Gajos de papa al estilo trattoria</div><div class="mc-price">₡2,000</div></div>
+    <div class="mc sr"><div class="mc-name">Bruschetta</div><div class="mc-desc">Pan tostado con tomates frescos y albahaca</div><div class="mc-price">₡2,900</div></div>
+  </div>
+</section>
+
+<div class="alt-bg">
+<section class="menu-sec" id="pasta">
+  <p class="sec-eyebrow sr">Hecha a mano</p>
+  <h2 class="sec-heading sr">Pasta</h2>
+  <div class="sec-rule sr"></div>
+  <div class="menu-grid">
+    <div class="mc sr"><div class="mc-name">Bolognese</div><div class="mc-desc">Molida de res en salsa pomodoro</div><div class="mc-price">₡6,000</div></div>
+    <div class="mc sr"><div class="mc-name">Quattro Formaggi</div><div class="mc-desc">Mozzarella, parmesano, gorgonzola, asiago</div><div class="mc-price">₡6,000</div></div>
+    <div class="mc sr"><div class="mc-name">Trapanese</div><div class="mc-desc">Tomate, ajo, albahaca, parmesano, almendras y berenjena frita</div><div class="mc-price">₡5,500</div></div>
+    <div class="mc sr"><div class="mc-name">Alfredo Gamberi</div><div class="mc-desc">Camarones, crema y perejil</div><div class="mc-price">₡7,500</div></div>
+    <div class="mc sr"><div class="mc-name">Amatriciana</div><div class="mc-desc">Salsa pomodoro, cebolla morada, tocino</div><div class="mc-price">₡6,000</div></div>
+    <div class="mc sr"><div class="mc-name">Lasagna</div><div class="mc-desc">Molida de res en capas perfectas de pasta al horno</div><div class="mc-price">₡6,500</div></div>
+  </div>
+</section>
+</div>
+
+<section class="menu-sec" id="carnes">
+  <p class="sec-eyebrow sr">De la parrilla</p>
+  <h2 class="sec-heading sr">Carnes</h2>
+  <div class="sec-rule sr"></div>
+  <div class="menu-grid">
+    <div class="mc sr"><div class="mc-name">Pollo a la Parmesana</div><div class="mc-desc">Pechuga gratinada al estilo italiano</div><div class="mc-price">₡6,000</div></div>
+    <div class="mc sr"><div class="mc-name">Boneless BBQ / Búfalo</div><div class="mc-desc">Trozos de pollo crujiente en salsa a elección</div><div class="mc-price">₡4,500</div></div>
+  </div>
+</section>
+
+<div class="alt-bg">
+<section class="menu-sec" id="postres">
+  <p class="sec-eyebrow sr">El final perfecto</p>
+  <h2 class="sec-heading sr">Postres &amp; Bebidas</h2>
+  <div class="sec-rule sr"></div>
+  <div class="cat-title sr">Postres</div>
+  <div class="menu-grid" style="margin-bottom:46px">
+    <div class="mc sr"><div class="mc-name">Tiramisú</div><div class="mc-desc">Clásico italiano con mascarpone y café</div><div class="mc-price">₡3,500</div></div>
+    <div class="mc sr"><div class="mc-name">Brownie Gelato</div><div class="mc-desc">Brownie tibio con helado artesanal</div><div class="mc-price">₡3,200</div></div>
+    <div class="mc sr"><div class="mc-name">Affogato</div><div class="mc-desc">Espresso sobre gelato de vainilla</div><div class="mc-price">₡2,900</div></div>
+  </div>
+  <div class="cat-title sr">Bebidas</div>
+  <div class="menu-grid">
+    <div class="mc sr"><div class="mc-name">Copa de Vino Tinto</div><div class="mc-desc">Vino tinto de la casa</div><div class="mc-price">₡2,800</div></div>
+    <div class="mc sr"><div class="mc-name">Sangría</div><div class="mc-desc">Clásica · Dorada · Plata</div><div class="mc-price">₡3,200 – ₡3,500</div></div>
+    <div class="mc sr"><div class="mc-name">Cerveza Nacional</div><div class="mc-desc">Fría y refrescante</div><div class="mc-price">₡1,700</div></div>
+    <div class="mc sr"><div class="mc-name">Refrescos &amp; Agua</div><div class="mc-desc">Naturales · Gaseosos · Agua botella</div><div class="mc-price">₡1,200 – ₡1,400</div></div>
+    <div class="mc sr"><div class="mc-name">Café / Espresso</div><div class="mc-desc">Café americano o espresso puro</div><div class="mc-price">₡1,100</div></div>
+    <div class="mc sr"><div class="mc-name">Té Helado</div><div class="mc-desc">Refrescante y natural</div><div class="mc-price">₡1,500</div></div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <span class="ft-logo">Nonna Franca</span>
+  <p class="ft-sub">Pizzeria Trattoria · Rivas, Pérez Zeledón, Costa Rica</p>
+  <div class="ft-contacts">
+    <a href="tel:63663748">📞 6366 3748</a>
+    <a href="#">📘 Nonna Franca Pizzeria</a>
+    <a href="#">📸 @nonna.francapizzeria</a>
+  </div>
+  <p class="ft-note">Los precios incluyen I.V.A. · No incluye 10% del servicio</p>
+  <div class="flag" style="margin:22px auto 0"><span></span><span></span><span></span></div>
+</footer>
+
+<script>
+const pizzas = [
+  { name:"Margherita", med:4500, gde:6500, desc:"La reina eterna. Sencilla, perfecta, inconfundible.", ingredients:["Salsa Pomodoro","Mozzarella","Albahaca fresca"], crustColor:"#c8922a", sauceColor:"#c0392b", cheeseColor:"#fef6e0", toppings:[{kind:"basil",count:5,color:"#27ae60",size:1}] },
+  { name:"Caprese", med:5000, gde:7000, desc:"Tomate fresco y mozzarella que rinden homenaje a la bandera italiana.", ingredients:["Salsa Pomodoro","Mozzarella","Tomate Fresco","Albahaca"], crustColor:"#c8922a", sauceColor:"#b83228", cheeseColor:"#fef6e0", toppings:[{kind:"tomato-slice",count:3,color:"#e74c3c",size:1.1},{kind:"basil",count:3,color:"#27ae60",size:.9}] },
+  { name:"Hawaiana", med:5500, gde:7500, desc:"El dulce de la piña y la sal del jamón: el clásico que divide opiniones.", ingredients:["Salsa Pomodoro","Mozzarella","Jamón","Piña"], crustColor:"#c8922a", sauceColor:"#c0392b", cheeseColor:"#fef6e0", toppings:[{kind:"pineapple",count:5,color:"#f39c12",size:1},{kind:"ham-round",count:4,color:"#e8968a",size:.9}] },
+  { name:"Champiñones", med:5500, gde:7500, desc:"Sabor a bosque y tierra, profundo y reconfortante.", ingredients:["Salsa Pomodoro","Mozzarella","Champiñones"], crustColor:"#c8922a", sauceColor:"#a83228", cheeseColor:"#f5efdc", toppings:[{kind:"mushroom",count:6,color:"#6d4c35",size:1.1}] },
+  { name:"Pepperoni", med:6000, gde:8000, desc:"La favorita de todos. Crujiente, picante e irresistible.", ingredients:["Salsa Pomodoro","Mozzarella","Pepperoni"], crustColor:"#c8922a", sauceColor:"#c0392b", cheeseColor:"#fef6e0", toppings:[{kind:"pepperoni",count:8,color:"#8b1a1a",size:1.2}] },
+  { name:"Carnívora", med:6500, gde:9000, desc:"Para los que nunca es suficiente. Cargada de carnes intensas.", ingredients:["Salsa Pomodoro","Mozzarella","Pepperoni","Tocino","Chorizo","Salchichón"], crustColor:"#c07820", sauceColor:"#921c1c", cheeseColor:"#f5efdc", toppings:[{kind:"pepperoni",count:5,color:"#7a1515",size:1.1},{kind:"bacon-strip",count:3,color:"#b03020",size:1},{kind:"ham-round",count:3,color:"#c06050",size:.8}] },
+  { name:"Vegetales", med:6000, gde:8000, desc:"Frescura y color del huerto en cada rebanada.", ingredients:["Salsa Pomodoro","Mozzarella","Zucchine","Chile Dulce","Cebolla","Aceitunas"], crustColor:"#c8922a", sauceColor:"#b03020", cheeseColor:"#fef6e0", toppings:[{kind:"veggie-strip",count:4,color:"#27ae60",size:1},{kind:"olive",count:4,color:"#2c3e50",size:.9},{kind:"pepper-ring",count:3,color:"#e74c3c",size:.9}] },
+  { name:"Mexicana", med:6000, gde:8000, desc:"Fuego latino: chorizo, jalapeño y cebolla en una base roja ardiente.", ingredients:["Salsa Pomodoro","Mozzarella","Chorizo","Jalapeño","Cebolla"], crustColor:"#c8922a", sauceColor:"#921c1c", cheeseColor:"#fef6e0", toppings:[{kind:"jalapeno",count:6,color:"#1e8c20",size:1},{kind:"ham-round",count:4,color:"#b04030",size:.85}] },
+  { name:"Quattro Formaggi", med:6500, gde:9000, desc:"Cuatro quesos italianos fundidos en armonía cremosa.", ingredients:["Salsa Pomodoro","Mozzarella","Parmesano","Gorgonzola","Asiago"], crustColor:"#c8922a", sauceColor:"#c0392b", cheeseColor:"#fff8e8", toppings:[{kind:"cheese-blob",count:6,color:"#e8d070",size:1.1},{kind:"cheese-blob",count:4,color:"#b0a060",size:.8}] },
+  { name:"Boscaiola", med:6500, gde:9000, desc:"Del bosque a tu mesa: champiñones, tocino y cebolla.", ingredients:["Salsa Pomodoro","Mozzarella","Tocino","Cebolla Morada","Champiñones"], crustColor:"#c07820", sauceColor:"#9b2525", cheeseColor:"#f5efdc", toppings:[{kind:"mushroom",count:5,color:"#5d3c22",size:1},{kind:"bacon-strip",count:3,color:"#b83020",size:.9}] },
+  { name:"Prosciutto", med:7000, gde:9500, desc:"El jamón serrano más elegante sobre mozzarella cremosa y arúgula fresca.", ingredients:["Salsa Pomodoro","Mozzarella","Jamón Serrano","Arúgula"], crustColor:"#c8922a", sauceColor:"#c0392b", cheeseColor:"#fef6e0", toppings:[{kind:"ham-round",count:5,color:"#d08878",size:1.1},{kind:"basil",count:4,color:"#5aaa50",size:.9}] },
+  { name:"Nonna Franca", med:7000, gde:9500, desc:"La estrella de la casa. Generosa, intensa y única como la nonna.", ingredients:["Salsa Pomodoro","Mozzarella","Tocino","Gorgonzola","Parmesano","Asiago","Piña","Jalapeño"], crustColor:"#d4a030", sauceColor:"#7a1515", cheeseColor:"#fff5d0", toppings:[{kind:"pepperoni",count:4,color:"#7a1515",size:1},{kind:"pineapple",count:3,color:"#f39c12",size:.9},{kind:"jalapeno",count:4,color:"#1e8c20",size:.9},{kind:"cheese-blob",count:3,color:"#e0c860",size:.85}] }
+];
+
+const canvas = document.getElementById('pizzaCanvas');
+const ctx = canvas.getContext('2d');
+const N = pizzas.length;
+const SLICE = (2 * Math.PI) / N;
+let angle = -Math.PI / 2;
+let isDragging = false;
+let lastMouseAngle = 0;
+let velocity = 0;
+let rafSnap = null, rafInertia = null;
+let currentIndex = -1;
+
+function seededRng(seed) {
+  let s = seed * 9301 + 49297;
+  return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+}
+
+function getSelectedIndex() {
+  let norm = ((-angle - Math.PI/2 + SLICE/2) % (2*Math.PI) + 2*Math.PI) % (2*Math.PI);
+  return Math.floor(norm / SLICE) % N;
+}
+
+function shadeColor(hex, amt) {
+  const n = parseInt(hex.replace('#',''),16);
+  const r = Math.max(0,Math.min(255,(n>>16)+amt));
+  const g = Math.max(0,Math.min(255,((n>>8)&0xff)+amt));
+  const b = Math.max(0,Math.min(255,(n&0xff)+amt));
+  return `rgb(${r},${g},${b})`;
+}
+
+function drawTopping(kind, x, y, size, color, rng) {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.strokeStyle = 'rgba(0,0,0,0.22)';
+  ctx.lineWidth = .7;
+  switch(kind) {
+    case 'pepperoni':
+      ctx.beginPath(); ctx.arc(x,y,size*7,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle='rgba(0,0,0,0.18)';
+      for(let k=0;k<4;k++){ ctx.beginPath(); ctx.arc(x+(rng()-.5)*9,y+(rng()-.5)*9,size*.9,0,Math.PI*2); ctx.fill(); }
+      break;
+    case 'mushroom':
+      ctx.beginPath(); ctx.ellipse(x,y-size*2,size*6,size*4.5,0,Math.PI,0); ctx.fill(); ctx.stroke();
+      ctx.fillStyle='#c8a878'; ctx.fillRect(x-size*1.8,y-size*2,size*3.6,size*4);
+      ctx.strokeStyle='rgba(0,0,0,0.1)'; ctx.lineWidth=.8;
+      for(let g=-2;g<=2;g++){ ctx.beginPath(); ctx.moveTo(x+g*size*1.8,y-size*2); ctx.lineTo(x+g*size*.8,y+size*2); ctx.stroke(); }
+      break;
+    case 'basil':
+      ctx.save(); ctx.translate(x,y); ctx.rotate(rng()*Math.PI*2);
+      ctx.beginPath(); ctx.ellipse(0,0,size*7,size*4,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle='rgba(255,255,255,0.35)'; ctx.lineWidth=.8;
+      ctx.beginPath(); ctx.moveTo(-size*5,0); ctx.bezierCurveTo(0,-size*2,0,size*2,size*5,0); ctx.stroke();
+      ctx.restore(); break;
+    case 'pineapple':
+      ctx.beginPath(); ctx.roundRect(x-size*4,y-size*4,size*8,size*8,size*1.5); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle='rgba(180,120,0,0.4)'; ctx.lineWidth=.7;
+      ctx.beginPath(); ctx.moveTo(x-size*4,y); ctx.lineTo(x+size*4,y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x,y-size*4); ctx.lineTo(x,y+size*4); ctx.stroke(); break;
+    case 'ham-round':
+      ctx.beginPath(); ctx.ellipse(x,y,size*7,size*5,rng()*Math.PI,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.beginPath(); ctx.ellipse(x-size*2,y-size*1.5,size*2,size*1.5,0,0,Math.PI*2); ctx.fill(); break;
+    case 'bacon-strip':
+      ctx.save(); ctx.translate(x,y); ctx.rotate(-.3+rng()*.6);
+      ctx.beginPath(); ctx.roundRect(-size*8,-size*2,size*16,size*4,size); ctx.fill(); ctx.stroke();
+      ctx.fillStyle='rgba(200,80,50,0.5)'; ctx.fillRect(-size*8+size*2,-size*2,size*4,size*4); ctx.fillRect(size*2,-size*2,size*3,size*4);
+      ctx.restore(); break;
+    case 'jalapeno':
+      ctx.save(); ctx.translate(x,y); ctx.rotate(rng()*Math.PI*2);
+      ctx.beginPath(); ctx.ellipse(0,0,size*2.5,size*7,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.beginPath(); ctx.ellipse(-size*.8,0,size*.8,size*5,0,0,Math.PI*2); ctx.fill();
+      ctx.restore(); break;
+    case 'olive':
+      ctx.beginPath(); ctx.arc(x,y,size*5.5,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle='rgba(255,220,150,0.9)'; ctx.beginPath(); ctx.arc(x,y,size*2,0,Math.PI*2); ctx.fill(); break;
+    case 'tomato-slice':
+      ctx.beginPath(); ctx.arc(x,y,size*6,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle='rgba(255,255,255,0.25)'; ctx.lineWidth=.8;
+      for(let s=0;s<6;s++){ ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+size*6*Math.cos(s*Math.PI/3),y+size*6*Math.sin(s*Math.PI/3)); ctx.stroke(); } break;
+    case 'veggie-strip':
+      ctx.save(); ctx.translate(x,y); ctx.rotate(rng()*Math.PI*2);
+      ctx.beginPath(); ctx.roundRect(-size*1.5,-size*8,size*3,size*16,size*1.5); ctx.fill();
+      ctx.restore(); break;
+    case 'pepper-ring':
+      ctx.beginPath(); ctx.arc(x,y,size*5,0,Math.PI*2); ctx.lineWidth=size*2.5; ctx.strokeStyle=color; ctx.stroke(); break;
+    case 'cheese-blob':
+      ctx.globalAlpha=0.7; ctx.beginPath(); ctx.ellipse(x,y,size*7,size*5,rng()*Math.PI,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; break;
+  }
+  ctx.restore();
+}
+
+function drawSlice(pi, sa, ea, selected) {
+  const p = pizzas[pi];
+  const cx = canvas.width/2, cy = canvas.height/2;
+  const R = Math.min(canvas.width,canvas.height)/2 - 8;
+  const mid = (sa+ea)/2;
+  const push = selected ? 10 : 0;
+  const ox = push*Math.cos(mid), oy = push*Math.sin(mid);
+
+  // Crust
+  ctx.save();
+  if(selected){ ctx.shadowColor='rgba(212,160,23,0.8)'; ctx.shadowBlur=28; }
+  ctx.beginPath(); ctx.moveTo(cx+ox,cy+oy); ctx.arc(cx+ox,cy+oy,R,sa,ea); ctx.closePath();
+  const cg = ctx.createRadialGradient(cx+ox,cy+oy,R*.65,cx+ox,cy+oy,R);
+  cg.addColorStop(0,p.crustColor); cg.addColorStop(1,shadeColor(p.crustColor,-35));
+  ctx.fillStyle=cg; ctx.fill(); ctx.restore();
+
+  // Sauce
+  ctx.save(); ctx.beginPath(); ctx.moveTo(cx+ox,cy+oy); ctx.arc(cx+ox,cy+oy,R*.87,sa+.016,ea-.016); ctx.closePath();
+  ctx.fillStyle=p.sauceColor; ctx.fill(); ctx.restore();
+
+  // Cheese
+  ctx.save(); ctx.beginPath(); ctx.moveTo(cx+ox,cy+oy); ctx.arc(cx+ox,cy+oy,R*.78,sa+.028,ea-.028); ctx.closePath();
+  const chg = ctx.createRadialGradient(cx+ox,cy+oy,R*.05,cx+ox,cy+oy,R*.8);
+  chg.addColorStop(0,shadeColor(p.cheeseColor,20)); chg.addColorStop(.7,p.cheeseColor); chg.addColorStop(1,shadeColor(p.cheeseColor,-10));
+  ctx.fillStyle=chg; ctx.fill();
+  // cheese bubbles
+  const rng0=seededRng(pi*13+7);
+  for(let b=0;b<6;b++){
+    const br=R*(.2+rng0()*.5), ba=sa+.04+rng0()*(ea-sa-.08);
+    const bx=cx+ox+br*Math.cos(ba), by=cy+oy+br*Math.sin(ba), bs=2.5+rng0()*4;
+    ctx.beginPath(); ctx.arc(bx,by,bs,0,Math.PI*2); ctx.fillStyle='rgba(255,240,180,0.45)'; ctx.fill();
+  }
+  ctx.restore();
+
+  // Toppings (clipped to cheese area)
+  ctx.save();
+  ctx.beginPath(); ctx.moveTo(cx+ox,cy+oy); ctx.arc(cx+ox,cy+oy,R*.77,sa+.028,ea-.028); ctx.closePath(); ctx.clip();
+  p.toppings.forEach((t,ti)=>{
+    const rng2=seededRng(pi*31+ti*17);
+    for(let i=0;i<t.count;i++){
+      const tr=R*(.15+rng2()*.56), ta=sa+.06+rng2()*(ea-sa-.12);
+      drawTopping(t.kind, cx+ox+tr*Math.cos(ta), cy+oy+tr*Math.sin(ta), t.size, t.color, rng2);
+    }
+  });
+  ctx.restore();
+
+  // Slice line
+  ctx.save(); ctx.beginPath(); ctx.moveTo(cx+ox,cy+oy); ctx.lineTo(cx+ox+R*Math.cos(sa),cy+oy+R*Math.sin(sa));
+  ctx.strokeStyle='rgba(15,5,0,0.5)'; ctx.lineWidth=1.5; ctx.stroke(); ctx.restore();
+
+  // Name label
+  const lr=R*.52, lx=cx+ox+lr*Math.cos(mid), ly=cy+oy+lr*Math.sin(mid);
+  ctx.save(); ctx.translate(lx,ly); ctx.rotate(mid+Math.PI/2);
+  const fs=Math.max(8,13-N*.2);
+  ctx.font=selected?`bold ${fs}px 'Playfair Display',serif`:`${fs*.9}px 'Cormorant Garamond',serif`;
+  ctx.fillStyle=selected?'rgba(255,255,255,1)':'rgba(255,255,255,0.55)';
+  if(selected){ctx.shadowColor='rgba(0,0,0,0.8)';ctx.shadowBlur=5;}
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(pizzas[pi].name.split(' ')[0],0,0);
+  ctx.restore();
+}
+
+function drawWheel() {
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const sel=getSelectedIndex();
+
+  // Draw non-selected first, then selected on top
+  for(let i=0;i<N;i++) if(i!==sel) drawSlice(i,angle+i*SLICE,angle+(i+1)*SLICE,false);
+  drawSlice(sel,angle+sel*SLICE,angle+(sel+1)*SLICE,true);
+
+  // Center knob
+  const cx=W/2,cy=H/2;
+  ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,18,0,Math.PI*2);
+  const kg=ctx.createRadialGradient(cx-5,cy-5,2,cx,cy,18);
+  kg.addColorStop(0,'#ecca50'); kg.addColorStop(1,'#7a5000');
+  ctx.fillStyle=kg; ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=10; ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.lineWidth=1; ctx.stroke(); ctx.restore();
+
+  // Pointer
+  const py=cy-(Math.min(W,H)/2-8)-16;
+  ctx.save(); ctx.beginPath(); ctx.moveTo(W/2-10,py-13); ctx.lineTo(W/2+10,py-13); ctx.lineTo(W/2,py+3); ctx.closePath();
+  ctx.fillStyle='#d4a017'; ctx.shadowColor='rgba(212,160,23,0.9)'; ctx.shadowBlur=12; ctx.fill(); ctx.restore();
+
+  if(sel!==currentIndex) { currentIndex=sel; updatePanel(sel); updateDots(sel); }
+}
+
+function updatePanel(i) {
+  const p=pizzas[i];
+  const c=document.getElementById('pipContent');
+  c.classList.add('fading');
+  setTimeout(()=>{
+    document.getElementById('pipNum').textContent=String(i+1).padStart(2,'0');
+    document.getElementById('pipName').textContent=p.name;
+    document.getElementById('pipLabel').textContent=`Pizza · ${i+1} de ${N}`;
+    document.getElementById('pipPrice').innerHTML=
+      `<span class="price-badge"><strong>Med</strong> ₡${p.med.toLocaleString()}</span>
+       <span class="price-badge"><strong>Gde</strong> ₡${p.gde.toLocaleString()}</span>`;
+    document.getElementById('pipDesc').textContent=p.desc;
+    document.getElementById('pipIngs').innerHTML=p.ingredients.map(ing=>`<span class="ing-tag">${ing}</span>`).join('');
+    c.classList.remove('fading');
+  },210);
+}
+
+function buildDots() {
+  const w=document.getElementById('pipDots'); w.innerHTML='';
+  pizzas.forEach((_,i)=>{
+    const b=document.createElement('button'); b.className='pip-dot'+(i===0?' active':'');
+    b.addEventListener('click',()=>snapToIndex(i)); w.appendChild(b);
+  });
+}
+
+function updateDots(i) {
+  document.querySelectorAll('.pip-dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
+}
+
+function snapToIndex(ti) {
+  cancelAnimationFrame(rafInertia); cancelAnimationFrame(rafSnap);
+  let target = -(ti*SLICE)-Math.PI/2;
+  let diff = target - angle;
+  while(diff>Math.PI) diff-=2*Math.PI;
+  while(diff<-Math.PI) diff+=2*Math.PI;
+  const start=angle; let t=0;
+  function go(){ t+=0.05; const e=1-Math.pow(1-Math.min(t,1),3); angle=start+diff*e; drawWheel(); if(t<1) rafSnap=requestAnimationFrame(go); }
+  go();
+}
+
+function getMouseAngle(e) {
+  const r=canvas.getBoundingClientRect();
+  const sx=canvas.width/r.width, sy=canvas.height/r.height;
+  const x=((e.touches?e.touches[0].clientX:e.clientX)-r.left)*sx-canvas.width/2;
+  const y=((e.touches?e.touches[0].clientY:e.clientY)-r.top)*sy-canvas.height/2;
+  return Math.atan2(y,x);
+}
+
+canvas.addEventListener('mousedown',e=>{isDragging=true;lastMouseAngle=getMouseAngle(e);velocity=0;cancelAnimationFrame(rafInertia);cancelAnimationFrame(rafSnap);e.preventDefault();});
+canvas.addEventListener('touchstart',e=>{isDragging=true;lastMouseAngle=getMouseAngle(e);velocity=0;cancelAnimationFrame(rafInertia);cancelAnimationFrame(rafSnap);e.preventDefault();},{passive:false});
+
+window.addEventListener('mousemove',e=>{
+  if(!isDragging) return;
+  const cur=getMouseAngle(e); let d=cur-lastMouseAngle;
+  if(d>Math.PI)d-=2*Math.PI; if(d<-Math.PI)d+=2*Math.PI;
+  angle+=d; velocity=d; lastMouseAngle=cur; drawWheel();
+});
+
+window.addEventListener('touchmove',e=>{
+  if(!isDragging) return;
+  const cur=getMouseAngle(e); let d=cur-lastMouseAngle;
+  if(d>Math.PI)d-=2*Math.PI; if(d<-Math.PI)d+=2*Math.PI;
+  angle+=d; velocity=d; lastMouseAngle=cur; drawWheel(); e.preventDefault();
+},{passive:false});
+
+function onEnd(){ if(!isDragging) return; isDragging=false; startInertia(); }
+window.addEventListener('mouseup',onEnd); window.addEventListener('touchend',onEnd);
+
+function startInertia(){
+  if(Math.abs(velocity)<0.002){snapToIndex(getSelectedIndex());return;}
+  function loop(){ velocity*=0.91; angle+=velocity; drawWheel(); if(Math.abs(velocity)>0.002) rafInertia=requestAnimationFrame(loop); else snapToIndex(getSelectedIndex()); }
+  loop();
+}
+
+buildDots(); updatePanel(0); drawWheel();
+
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); }),{threshold:.12});
+document.querySelectorAll('.sr').forEach(el=>obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});}));
+</script>
+</body>
+</html>
