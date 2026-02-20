@@ -90,13 +90,31 @@ body::before {
 @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
 
 /* ── NAV ── */
-nav { position:sticky;top:0;z-index:200;background:rgba(13,5,0,.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,134,11,.18);padding:0 40px; }
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(13,5,0,.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,134,11,.18);
+  padding: 0 40px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+nav.nav-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
 .nav-inner { max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 0; }
 .nav-logo { font-family:'Playfair Display',serif;font-style:italic;font-size:1.25rem;color:var(--gold-light); }
 .nav-links { display:flex;gap:28px;list-style:none; }
 .nav-links a { color:rgba(245,237,224,.6);text-decoration:none;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;transition:color .3s; }
 .nav-links a:hover { color:var(--gold-light); }
-@media(max-width:700px){ .nav-links{display:none} }
+@media(max-width:700px){
+  .nav-links { display:none; }
+  /* On mobile, only show nav after scrolling past hero */
+  nav.nav-hidden { transform:translateY(-100%); }
+}
 
 /* ── PIZZA SECTION ── */
 #pizza-section { background:#130800;padding:80px 0 90px; }
@@ -301,6 +319,28 @@ footer { background:var(--dark);color:rgba(245,237,224,.55);text-align:center;pa
 </footer>
 
 <script>
+// ── NAV — solo mostrar en móvil después del hero ──────────────────────────────
+const navEl = document.querySelector('nav');
+const heroEl = document.getElementById('hero');
+
+function updateNav() {
+  if (window.innerWidth <= 700) {
+    // On mobile: hide nav while inside hero, show after
+    const heroBottom = heroEl.offsetHeight;
+    if (window.scrollY < heroBottom - 60) {
+      navEl.classList.add('nav-hidden');
+    } else {
+      navEl.classList.remove('nav-hidden');
+    }
+  } else {
+    navEl.classList.remove('nav-hidden');
+  }
+}
+
+updateNav();
+window.addEventListener('scroll', updateNav, { passive: true });
+window.addEventListener('resize', updateNav, { passive: true });
+
 // ── VESPA SCROLL PARALLAX — perfectamente centrada ─────────────────────────
 const vespa = document.getElementById('vespa');
 const hero  = document.getElementById('hero');
