@@ -22,7 +22,7 @@
 html { scroll-behavior:smooth; }
 
 body {
-  background: #0d0500;
+  background: #150800;
   color: var(--dark);
   font-family: 'Cormorant Garamond', serif;
   overflow-x: hidden;
@@ -150,20 +150,24 @@ nav.nav-hidden {
 .pip-content.fading { opacity:0;transform:translateX(14px); }
 
 /* OTHER SECTIONS */
-section.menu-sec { max-width:1100px;margin:0 auto;padding:80px 30px;background:var(--cream); }
-.alt-bg { background:var(--parchment); }
-.alt-bg section.menu-sec { background:transparent; }
-.sec-eyebrow { font-size:.72rem;letter-spacing:.5em;text-transform:uppercase;color:var(--tomato);margin-bottom:8px; }
-.sec-heading { font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,5vw,3rem);color:var(--espresso); }
+section.menu-sec { max-width:1100px;margin:0 auto;padding:80px 30px;background:transparent; }
+
+/* Section wrappers background */
+.sec-dark { background: #0f0600; }
+.sec-mid  { background: #1c0d04; }
+.alt-bg { background:#1c0d04; }
+
+.sec-eyebrow { font-size:.72rem;letter-spacing:.5em;text-transform:uppercase;color:var(--tomato-light);margin-bottom:8px; }
+.sec-heading { font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,5vw,3rem);color:var(--gold-light); }
 .sec-rule { width:50px;height:2px;background:var(--gold);margin:18px 0 46px; }
 .menu-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px; }
-.mc { background:var(--mozzarella);border:1px solid rgba(45,26,10,.1);padding:26px;position:relative;transition:transform .3s,box-shadow .3s; }
+.mc { background:rgba(255,255,255,0.04);border:1px solid rgba(184,134,11,.18);padding:26px;position:relative;transition:transform .3s,box-shadow .3s; }
 .mc::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--tomato),var(--gold)); }
-.mc:hover { transform:translateY(-5px);box-shadow:0 14px 40px rgba(45,26,10,.13); }
-.mc-name { font-family:'Playfair Display',serif;font-style:italic;font-size:1.35rem;color:var(--espresso);margin-bottom:5px; }
-.mc-desc { font-size:.9rem;color:rgba(45,26,10,.5);font-style:italic;line-height:1.5;margin-bottom:12px; }
-.mc-price { font-size:1rem;color:var(--tomato);font-weight:700;letter-spacing:.05em; }
-.cat-title { font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:.3em;text-transform:uppercase;color:var(--espresso);padding:12px 0 10px;border-bottom:1px solid rgba(45,26,10,.15);margin-bottom:20px; }
+.mc:hover { transform:translateY(-5px);box-shadow:0 14px 40px rgba(0,0,0,.4);border-color:rgba(184,134,11,.4); }
+.mc-name { font-family:'Playfair Display',serif;font-style:italic;font-size:1.35rem;color:var(--gold-light);margin-bottom:5px; }
+.mc-desc { font-size:.9rem;color:rgba(245,237,224,.45);font-style:italic;line-height:1.5;margin-bottom:12px; }
+.mc-price { font-size:1rem;color:#ff8875;font-weight:700;letter-spacing:.05em; }
+.cat-title { font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);padding:12px 0 10px;border-bottom:1px solid rgba(184,134,11,.2);margin-bottom:20px; }
 
 footer { background:var(--dark);color:rgba(245,237,224,.55);text-align:center;padding:60px 30px 40px; }
 .ft-logo { font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;color:var(--gold-light);display:block;margin-bottom:6px; }
@@ -242,7 +246,7 @@ footer { background:var(--dark);color:rgba(245,237,224,.55);text-align:center;pa
 </div>
 
 <!-- ENTRADAS -->
-<section class="menu-sec" id="entradas">
+<section class="menu-sec" id="entradas" style="background:transparent;">
   <p class="sec-eyebrow sr">Para comenzar</p>
   <h2 class="sec-heading sr">Entradas</h2>
   <div class="sec-rule sr"></div>
@@ -253,7 +257,7 @@ footer { background:var(--dark);color:rgba(245,237,224,.55);text-align:center;pa
     <div class="mc sr"><div class="mc-name">Papas Gajo</div><div class="mc-desc">Gajos de papa al estilo trattoria</div><div class="mc-price">₡2,000</div></div>
     <div class="mc sr"><div class="mc-name">Bruschetta</div><div class="mc-desc">Pan tostado con tomates frescos y albahaca</div><div class="mc-price">₡2,900</div></div>
   </div>
-</section>
+</section></div>
 
 <div class="alt-bg">
 <section class="menu-sec" id="pasta">
@@ -271,7 +275,7 @@ footer { background:var(--dark);color:rgba(245,237,224,.55);text-align:center;pa
 </section>
 </div>
 
-<section class="menu-sec" id="carnes">
+<section class="menu-sec" id="carnes" style="background:transparent;">
   <p class="sec-eyebrow sr">De la parrilla</p>
   <h2 class="sec-heading sr">Carnes</h2>
   <div class="sec-rule sr"></div>
@@ -279,7 +283,7 @@ footer { background:var(--dark);color:rgba(245,237,224,.55);text-align:center;pa
     <div class="mc sr"><div class="mc-name">Pollo a la Parmesana</div><div class="mc-desc">Pechuga gratinada al estilo italiano</div><div class="mc-price">₡6,000</div></div>
     <div class="mc sr"><div class="mc-name">Boneless BBQ / Búfalo</div><div class="mc-desc">Trozos de pollo crujiente en salsa a elección</div><div class="mc-price">₡4,500</div></div>
   </div>
-</section>
+</section></div>
 
 <div class="alt-bg">
 <section class="menu-sec" id="postres">
